@@ -72,4 +72,13 @@ Here is an example of the a delegate method that uses a successful response to c
 
 }}}
 
+Now that you have an unauthorized request token, direct your user to the service provider's User Authorization URL so that they can approve access for you application:
+
+{{{
+
+NSURL *url = [NSURL URLWithString:@"http://example.com/authorize"];
+    [[NSWorkspace sharedWorkspace] openURL:url];
+
+}}}
+
 This page is a work in progress. More to come later.
