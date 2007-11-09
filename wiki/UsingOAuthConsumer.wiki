@@ -70,4 +70,6 @@ Here is an example of the a delegate method that uses a successful response to c
     }
 }
 
+}}}
+
 This page is a work in progress. More to come later.
