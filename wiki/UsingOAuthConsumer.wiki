@@ -121,7 +121,7 @@ At this point, you are ready to access the service provider's APIs, authenticati
 
 Speaking of parameters, there are methods added to `NSMutableURLRequest` (and thus `OAMutableURLRequest`) to support setting parameters for requests. At the moment, there is a requirement to first set the HTTP method, then add or get the parameters as an `NSArray`.
 
-Here is an example OAuth request for a protected resource using the HTTP GET method (default), HTTPS, the Plaintext signature method, passing two parameters:
+Here is an example OAuth request for a protected resource using the GET method (default), HTTPS, the Plaintext signature method, passing two parameters:
 
   # title = My Page
   # description = My Page Holds Text
