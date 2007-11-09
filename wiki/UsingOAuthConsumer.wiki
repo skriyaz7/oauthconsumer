@@ -123,8 +123,8 @@ Speaking of parameters, there are methods added to `NSMutableURLRequest` (and th
 
 Here is an example OAuth request for a protected resource using the HTTP GET method (default), HTTPS, the Plaintext signature method, passing two parameters:
 
-# title = My Page
-# description = My Page Holds Text
+* title = My Page
+* description = My Page Holds Text
 
 {{{
 
