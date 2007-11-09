@@ -90,7 +90,7 @@ The service provider should first ensure the user is logged in, requiring authen
 
 Now that the Request Token has been authorized, an Access Token can be obtained in the same manner as described in "Getting an Unauthorized Request Token" with two exceptions:
 
-# Instead of passing `nil` for the token parameter when creating the `OAMutableURLRequest`, pass the token obtained with the requestTokenTicket:didFinishWithData: method, above.
+# Instead of passing `nil` for the token parameter when creating the `OAMutableURLRequest`, pass the token obtained with the `requestTokenTicket:didFinishWithData:` method, above.
 # The delegate methods might choose different names such as `accessTokenTicket:didFinishWithData:` and `accessTokenTicket:didFailWithError:`.
 
 The delegate method can create the Access Token as an `OAToken` object in exactly the same manner as described above for the Request Token.
