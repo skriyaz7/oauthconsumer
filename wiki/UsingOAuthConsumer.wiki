@@ -34,8 +34,8 @@ The first order of business when communicating with an OAuth service provider is
 
 {{{
 
-    OAConsumer *consumer = [[OAConsumer alloc] initWithKey:@"key123"
-                                                    secret:@"secret123"];
+    OAConsumer *consumer = [[OAConsumer alloc] initWithKey:@"mykey"
+                                                    secret:@"mysecret"];
 
     NSURL *url = [NSURL URLWithString:@"http://example.com/get_request_token"];
 
