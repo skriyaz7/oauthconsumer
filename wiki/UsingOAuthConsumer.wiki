@@ -8,9 +8,11 @@ This HOWTO is for developers interested in adding support for OAuth to their Mac
 == Importing the Framework ==
 
 There are 3 steps for adding the pre-compiled framework to your app:
-  # Drag the framework into your Linked Frameworks group in Xcode.
-  # Create a new Copy Files Build Phase.
-  # Drag the framework into the new Copy Files Build Phase.
+  # Drag the framework into your Linked Frameworks group in Xcode, choosing to copy the framework instead of simply referencing it.
+  # Create a new Copy Files Build Phase for your app's main target.
+  # Drag the framework from the Linked Frameworks folder into the new Copy Files Build Phase and select "Frameworks" as its destination.
+
+*For now, please use this as a private embedded framework rather than copying it to the system's framework folder upon installation.*
 
 == Using OAuthConsumer ==
 
