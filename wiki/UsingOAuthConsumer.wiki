@@ -90,21 +90,62 @@ The service provider should first ensure the user is logged in, requiring authen
 
 Now that the Request Token has been authorized, an Access Token can be obtained in the same manner as described in "Getting an Unauthorized Request Token" with two exceptions:
 
-# Instead of passing `nil` for the token parameter when creating the OAMutableURLRequest, pass the token obtained with the requestTokenTicket:didFinishWithData: method, above.
-# The delegate methods might choose different names such as accessTokenTicket:didFinishWithData: and accessTokenTicket:didFailWithError:.
+# Instead of passing `nil` for the token parameter when creating the `OAMutableURLRequest`, pass the token obtained with the requestTokenTicket:didFinishWithData: method, above.
+# The delegate methods might choose different names such as `accessTokenTicket:didFinishWithData:` and `accessTokenTicket:didFailWithError:`.
 
-The delegate method can create the Access Token as an OAToken object in exactly the same manner as described above for the Request Token. If you choose to store this token in the user's Keychain, it can be done like this:
+The delegate method can create the Access Token as an `OAToken` object in exactly the same manner as described above for the Request Token.
+
+=== Using the Keychain ===
+
+If you choose to store this token in the user's Keychain, it can be done like this:
 
 {{{
 
 [accessToken storeInDefaultKeychainWithAppName:@"MyApp"
-                          serviceProviderName:@"Example.com"];
+                           serviceProviderName:@"Example.com"];
+
+}}}
+
+Retrieving that same token on a different run of your app looks like this:
+
+{{{
+
+    OAToken *accessToken = [[OAToken alloc] initWithKeychainUsingAppName:@"MyApp"
+                                                     serviceProviderName:@"Example.com"];
 
 }}}
 
 === Accessing Protected Resources ===
 
-At this point, you are ready to access the service provider's APIs, authenticating with OAuth in the background. You can either send requests using OAMutableURLRequest 
+At this point, you are ready to access the service provider's APIs, authenticating with OAuth in the background. You can either send requests using `OAMutableURLRequest` in the same manner as you would normally do with `NSMutableURLRequest` or you can continue to use the convenience objects `OAServiceTicket` and `OADataFetcher`. If you choose the former, be sure to call the `prepare` method on the request prior to initiating the connection or your request will not contain valid OAuth parameters.
 
+Speaking of parameters, there are methods added to `NSMutableURLRequest` (and thus `OAMutableURLRequest`) to support setting parameters for requests. At the moment, there is a requirement to first set the HTTP method, then add or get the parameters as an `NSArray`.
 
-This page is an incomplete work in progress.
+Here is an example OAuth request for a protected resource using the HTTP GET method (default), HTTPS, the Plaintext signature method, passing two parameters:
+
+# title = My Page
+# description = My Page Holds Text
+
+{{{
+
+    NSURL *url = [NSURL URLWithString:@"https://example.com/user/1/flights/"];
+    OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url
+                                                                   consumer:consumer
+                                                                      token:accessToken
+                                                                      realm:nil
+                                                          signatureProvider:[[OAPlaintextSignatureProvider alloc] init]];
+    
+    OARequestParameter *nameParam = [[OARequestParameter alloc] initWithName:@"title"
+                                                                       value:@"My Page"];
+    OARequestParameter *descParam = [[OARequestParameter alloc] initWithName:@"description"
+                                                                       value:@"My Page Holds Text"];
+    NSArray *params = [NSArray arrayWithObjects:nameParam, descParam, nil];
+    [request setParameters:params];
+    
+    OADataFetcher *fetcher = [[OADataFetcher alloc] init];
+    [fetcher fetchDataWithRequest:request
+                         delegate:self
+                didFinishSelector:@selector(apiTicket:didFinishWithData:)
+                  didFailSelector:@selector(apiTicket:didFailWithError:)];
+
+}}}
