@@ -1,9 +1,9 @@
-#summary The HOWTO for using OAuthConsumer in your Mac app.
+#summary A guide to using OAuthConsumer in your Mac app.
 #labels Featured,Phase-Implementation
 
 == Introduction ==
 
-This HOWTO is for developers interested in adding support for OAuth to their Mac apps. If you would like to build your own version of the framework, please see BuildingOAuthConsumer.
+This guide is for developers interested in adding support for [http://oauth.net OAuth] to their Mac apps. In order to use the framework, you must first get a copy from the repository and compile it. Compiling the framework will automatically run all of the unit tests.
 
 == Importing the Framework ==
 
