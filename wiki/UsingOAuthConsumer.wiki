@@ -58,4 +58,14 @@ The first order of business when communicating with an OAuth service provider is
 
 }}}
 
+Here is an example of the a delegate method that uses a successful response to create the Request Token:
+
+{{{
+
+- (void)requestTokenTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
+    NSString *responseBody = [[NSString alloc] initWithData:data
+                                                   encoding:NSUTF8StringEncoding];
+    OAToken *requestToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
+}
+
 This page is a work in progress. More to come later.
