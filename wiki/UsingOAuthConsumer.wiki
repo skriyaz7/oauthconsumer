@@ -63,13 +63,13 @@ Here is an example of the a delegate method that uses a successful response to c
 
 {{{
 
-- (void)requestTokenTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
-    if (ticket.didSucceed) {
-        NSString *responseBody = [[NSString alloc] initWithData:data
-                                                       encoding:NSUTF8StringEncoding];
-        requestToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
+    - (void)requestTokenTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
+        if (ticket.didSucceed) {
+            NSString *responseBody = [[NSString alloc] initWithData:data
+                                                           encoding:NSUTF8StringEncoding];
+            requestToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
+        }
     }
-}
 
 }}}
 
@@ -79,8 +79,8 @@ Now that you have an unauthorized request token, direct your user to the service
 
 {{{
 
-NSURL *url = [NSURL URLWithString:@"http://example.com/authorize"];
-[[NSWorkspace sharedWorkspace] openURL:url];
+    NSURL *url = [NSURL URLWithString:@"http://example.com/authorize"];
+    [[NSWorkspace sharedWorkspace] openURL:url];
 
 }}}
 
@@ -101,8 +101,8 @@ If you choose to store this token in the user's Keychain, it can be done like th
 
 {{{
 
-[accessToken storeInDefaultKeychainWithAppName:@"MyApp"
-                           serviceProviderName:@"Example.com"];
+    [accessToken storeInDefaultKeychainWithAppName:@"MyApp"
+                               serviceProviderName:@"Example.com"];
 
 }}}
 
