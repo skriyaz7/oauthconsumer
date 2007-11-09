@@ -106,7 +106,7 @@ If you choose to store this token in the user's Keychain, it can be done like th
 
 }}}
 
-Retrieving that same token on a different run of your app looks like this:
+Retrieving that same token from the Keychain on a different run of your app looks like this:
 
 {{{
 
