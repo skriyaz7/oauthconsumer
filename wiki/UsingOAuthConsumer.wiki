@@ -8,9 +8,10 @@ This HOWTO is for developers interested in adding support for OAuth to their Mac
 == Importing the Framework ==
 
 There are 3 steps for adding the pre-compiled framework to your app in Xcode:
-  # Drag the framework into your Linked Frameworks group in Xcode, choosing to copy the framework instead of simply referencing it.
-  # Create a new Copy Files Build Phase for your app's main target.
-  # Drag the framework from the Linked Frameworks folder into the new Copy Files Build Phase and select "Frameworks" as its destination.
+
+# Drag the framework into your Linked Frameworks group in Xcode, choosing to copy the framework instead of simply referencing it.
+# Create a new Copy Files Build Phase for your app's main target.
+# Drag the framework from the Linked Frameworks folder into the new Copy Files Build Phase and select "Frameworks" as its destination.
 
 *For now, please use this as a private embedded framework rather than copying it to the system's framework folder upon installation.*
 
@@ -72,13 +73,38 @@ Here is an example of the a delegate method that uses a successful response to c
 
 }}}
 
+=== Authorizing the Request Token ===
+
 Now that you have an unauthorized request token, direct your user to the service provider's User Authorization URL so that they can approve access for you application:
 
 {{{
 
 NSURL *url = [NSURL URLWithString:@"http://example.com/authorize"];
-    [[NSWorkspace sharedWorkspace] openURL:url];
+[[NSWorkspace sharedWorkspace] openURL:url];
 
 }}}
 
-This page is a work in progress. More to come later.
+The service provider should first ensure the user is logged in, requiring authentication if this is not the case. The user will then have an opportunity to grant access for your application on the service provider's site. Service providers can use this interaction to limit access to certain kinds of assets if desired.
+
+=== Obtaining an Access Token ===
+
+Now that the Request Token has been authorized, an Access Token can be obtained in the same manner as described in "Getting an Unauthorized Request Token" with two exceptions:
+
+# Instead of passing `nil` for the token parameter when creating the OAMutableURLRequest, pass the token obtained with the requestTokenTicket:didFinishWithData: method, above.
+# The delegate methods might choose different names such as accessTokenTicket:didFinishWithData: and accessTokenTicket:didFailWithError:.
+
+The delegate method can create the Access Token as an OAToken object in exactly the same manner as described above for the Request Token. If you choose to store this token in the user's Keychain, it can be done like this:
+
+{{{
+
+[accessToken storeInDefaultKeychainWithAppName:@"MyApp"
+                                   serviceProviderName:@"Example.com"];
+
+}}}
+
+=== Accessing Protected Resources ===
+
+At this point, you are ready to access the service provider's APIs, authenticating with OAuth in the background. You can either send requests using OAMutableURLRequest 
+
+
+This page is an incomplete work in progress.
