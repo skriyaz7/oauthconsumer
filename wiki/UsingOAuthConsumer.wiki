@@ -1,4 +1,4 @@
-#summary A guide to using OAuthConsumer in your Mac app.
+#summary A developer's guide to using OAuthConsumer in a Mac application.
 #labels Featured,Phase-Implementation
 
 == Introduction ==
