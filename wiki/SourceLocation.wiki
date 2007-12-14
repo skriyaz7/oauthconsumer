@@ -1,1 +1,1 @@
-The source code for this project is located on the OAuth Google Code project.
+The code for this project currently resides in the [http://code.google.com/p/oauth/ OAuth Google Code] repository, but the rest of the project lives here.
